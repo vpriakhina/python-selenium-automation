@@ -5,5 +5,5 @@ Feature: Test Scenarios for Search functionality
     Given Open Google page
     When Input Shoes into search field
     And Click on search icon
-    Then Product results for Shoes are shown
+    Then Product results for Shoes are present
     And First result contains Shoes

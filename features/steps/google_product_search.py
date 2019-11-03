@@ -28,7 +28,7 @@ def click_search_icon(context):
     sleep(1)
 
 
-@then('Product results for {search_word} are shown')
+@then('Product results for {search_word} are present')
 def verify_found_results_text(context, search_word):
     results_msg = context.driver.find_element(*RESULTS_FOUND_MESSAGE).text
     assert search_word in results_msg, "Expected word '{}' in message, but got '{}'".format(search_word, results_msg)
