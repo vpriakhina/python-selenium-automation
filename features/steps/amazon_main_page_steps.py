@@ -14,6 +14,7 @@ AMAZON_MUSIC_MENU_ITEM_RESULTS = (By.CSS_SELECTOR, "ul.hmenu-visible a:not(.hmen
 CART_ITEM_COUNT = (By.ID, 'nav-cart-count')
 DEALS_UNDER_25_LINK = (By.XPATH, "//a[contains(@aria-label, 'deals under $25')]")
 PRODUCT_TO_CART = (By.ID, '103 50906b34-announce')
+SIGN_IN_TOOLTIP = (By.CSS_SELECTOR, "#nav-signin-tooltip span")
 
 
 @given('Open Amazon page')
@@ -106,4 +107,20 @@ def close_and_switch_window_back(context):
 @then('Refresh the page')
 def page_refresh(context):
     context.driver.refresh()
+
+
+@then('Verify Sign In tooltip is present and clickable')
+def verify_sign_in_tooltip_clickable(context):
+    context.driver.wait.until(EC.element_to_be_clickable(SIGN_IN_TOOLTIP))
+
+
+@when('Wait until Sign In tooltip disappears')
+def wait_sign_in_tooltip_disappears(context):
+    context.driver.wait.until(EC.invisibility_of_element_located(SIGN_IN_TOOLTIP))
+
+
+@then('Verify Sign In tooltip is not clickable')
+def wait_sign_in_tooltip_not_clickable(context):
+    context.driver.wait.until_not(EC.element_to_be_clickable(SIGN_IN_TOOLTIP))
+
 
