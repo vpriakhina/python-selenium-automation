@@ -2,10 +2,15 @@
 Feature: Test for Amazon Search functionality
   # Enter feature description here
 
-  Scenario: User can search for a product
+  Scenario Outline: User can search for a multiple products
+    Examples:
+    |keyword  |expected_result  |
+    |dress    |"dress"          |
+    |shoes    |"shoes"          |
+    |toys     |"toys"           |
     Given Open Amazon page
-    When Search for dress
-    Then Search results for dress is shown
+    When Search for <keyword>
+    Then Search results for <expected_result> is shown
 
   Scenario: User can add product into the cart
     Given Open Amazon page

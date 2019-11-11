@@ -5,4 +5,4 @@ Feature: Test for Amazon Cart functionality
   Scenario: # Enter scenario name here
     Given Open Amazon page
     When Click on Shopping Cart link
-    Then Verify Shopping Cart is empty
+    Then Your Shopping Cart is empty is present

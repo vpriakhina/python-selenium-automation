@@ -4,4 +4,4 @@ Feature: Tests for Orders functionality
   Scenario: User must sign in to check orders
     Given Open Amazon page
     When Click Amazon Orders link
-    Then Verify Sign In page is opened
+    Then Check https://www.amazon.com/ap/signin is opened

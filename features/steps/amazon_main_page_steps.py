@@ -3,13 +3,13 @@ from behave import given, when, then
 from time import sleep
 from selenium.webdriver.support import expected_conditions as EC
 
-ORDERS_LINK = (By.CSS_SELECTOR, "a#nav-orders span.nav-line-2")
-SEARCH_INPUT = (By.ID, 'twotabsearchtextbox')
-SEARCH_ICON = (By.CSS_SELECTOR, "input.nav-input[type='submit']")
-CART_LINK = (By.CSS_SELECTOR, "a#nav-cart")
+#ORDERS_LINK = (By.CSS_SELECTOR, "a#nav-orders span.nav-line-2")
+#SEARCH_INPUT = (By.ID, 'twotabsearchtextbox')
+#SEARCH_ICON = (By.CSS_SELECTOR, "input.nav-input[type='submit']")
+#CART_LINK = (By.CSS_SELECTOR, "a#nav-cart")
 HELP_LINK = (By.XPATH, "//li[@class='nav_last']/a[text()='Help']")
-HAM_MENU = (By.ID, 'nav-hamburger-menu')
-AMAZON_MUSIC_MENU_ITEM = (By.XPATH, "//ul[contains(@class, 'hmenu-visible')]//div[contains(text(), 'Amazon Music')]")
+#HAM_MENU = (By.ID, 'nav-hamburger-menu')
+#AMAZON_MUSIC_MENU_ITEM = (By.XPATH, "//ul[contains(@class, 'hmenu-visible')]//div[contains(text(), 'Amazon Music')]")
 AMAZON_MUSIC_MENU_ITEM_RESULTS = (By.CSS_SELECTOR, "ul.hmenu-visible a:not(.hmenu-back-button")
 CART_ITEM_COUNT = (By.ID, 'nav-cart-count')
 DEALS_UNDER_25_LINK = (By.XPATH, "//a[contains(@aria-label, 'deals under $25')]")
@@ -18,25 +18,27 @@ PRODUCT_TO_CART = (By.ID, '103 50906b34-announce')
 
 @given('Open Amazon page')
 def open_amazon(context):
-    context.driver.get('https://www.amazon.com/')
+    context.app.main_page.open_page()
 
 
 @when('Click Amazon Orders link')
 def click_orders_link(context):
-    context.driver.find_element(*ORDERS_LINK).click()
+    #context.driver.find_element(*ORDERS_LINK).click()
+    context.app.main_page.click_amazon_orders()
 
 
 @when('Search for {product}')
 def search_product(context, product):
-    search_field = context.driver.find_element(*SEARCH_INPUT)
-    search_field.clear()
-    search_field.send_keys(product)
-    context.driver.find_element(*SEARCH_ICON).click()
-
+    # search_field = context.driver.find_element(*SEARCH_INPUT)
+    # search_field.clear()
+    # search_field.send_keys(product)
+    # context.driver.find_element(*SEARCH_ICON).click()
+    context.app.main_page.search_for_keyword(product)
 
 @when('Click on Shopping Cart link')
 def click_cart_link(context):
-    context.driver.find_element(*CART_LINK).click()
+    #context.driver.find_element(*CART_LINK).click()
+    context.app.main_page.click_shop_cart()
 
 
 @when('Click on Help link')
@@ -46,20 +48,22 @@ def click_help_link(context):
 
 @when('Click on hamburger menu')
 def click_ham_menu(context):
-    context.driver.find_element(*HAM_MENU).click()
-
+    #context.driver.find_element(*HAM_MENU).click()
+    context.app.main_page.click_ham_menu()
 
 @when('Click on Amazon Music menu item')
 def click_amazon_music(context):
-    context.driver.find_element(*AMAZON_MUSIC_MENU_ITEM).click()
+    #context.driver.find_element(*AMAZON_MUSIC_MENU_ITEM).click()
+    context.app.main_page.click_music_menu()
 
 
 @then('{expected_item_count} menu items are present')
 def verify_amount_of_items(context, expected_item_count):
-    sleep(3)
-    actual_item_count = len(context.driver.find_elements(*AMAZON_MUSIC_MENU_ITEM_RESULTS))
-    assert actual_item_count == int(expected_item_count), \
-        f'Expected {expected_item_count} but got {actual_item_count}'
+    # sleep(3)
+    # actual_item_count = len(context.driver.find_elements(*AMAZON_MUSIC_MENU_ITEM_RESULTS))
+    # assert actual_item_count == int(expected_item_count), \
+    #     f'Expected {expected_item_count} but got {actual_item_count}'
+    context.app.main_page.menu_item_count(expected_item_count)
 
 
 @then('Verify cart has {expected_item_count} item')
