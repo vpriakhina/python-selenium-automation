@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from Pages.Base_page import Page
-from time import sleep
+from selenium.webdriver.support.select import Select
 
 class MainPage(Page):
     SEARCH_INPUT = (By.ID, 'twotabsearchtextbox')
@@ -8,8 +8,8 @@ class MainPage(Page):
     CART_LINK = (By.CSS_SELECTOR, "a#nav-cart")
     ORDERS_LINK = (By.CSS_SELECTOR, "a#nav-orders span.nav-line-2")
     HAM_MENU = (By.ID, 'nav-hamburger-menu')
-    MUSIC_MENU = (By.XPATH, "//ul[contains(@class, 'hmenu-visible')]//div[contains(text(), 'Amazon Music')]")
-    AMAZON_MUSIC_MENU_ITEM_RESULTS = (By.CSS_SELECTOR, "ul.hmenu-visible a:not(.hmenu-back-button")
+    SELECT_DEPARTMENT = (By.CSS_SELECTOR, 'select.nav-search-dropdown')
+    SELECT_DEPARTMENT_SPAN = (By.CSS_SELECTOR, '#nav-search-dropdown-card span.nav-search-label')
 
     def search_for_keyword(self, text):
         self.input_text(text, *self.SEARCH_INPUT)
@@ -24,10 +24,17 @@ class MainPage(Page):
     def click_ham_menu(self):
         self.click(*self.HAM_MENU)
 
-    def click_music_menu(self):
-        self.click(*self.MUSIC_MENU)
+    def select_department_books(self):
+        select_department_element = self.find_element(*self.SELECT_DEPARTMENT)
+        select = Select(select_department_element)
+        select.select_by_value('search-alias=stripbooks')
 
-    def menu_item_count(self, expected_item):
-        sleep(3)
-        self.verify_item_count(expected_item, *self. AMAZON_MUSIC_MENU_ITEM_RESULTS)
+    def select_department_electronics(self):
+        select_department_element = self.find_element(*self.SELECT_DEPARTMENT)
+        select = Select(select_department_element)
+        select.select_by_value('search-alias=electronics')
+
+    def verify_selected_department(self, expected_department):
+        self.verify_text(expected_department, *self.SELECT_DEPARTMENT_SPAN)
+
 

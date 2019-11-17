@@ -48,22 +48,18 @@ def click_help_link(context):
 
 @when('Click on hamburger menu')
 def click_ham_menu(context):
-    #context.driver.find_element(*HAM_MENU).click()
     context.app.main_page.click_ham_menu()
+
 
 @when('Click on Amazon Music menu item')
 def click_amazon_music(context):
-    #context.driver.find_element(*AMAZON_MUSIC_MENU_ITEM).click()
-    context.app.main_page.click_music_menu()
+    context.app.side_menu.click_music_menu()
 
 
 @then('{expected_item_count} menu items are present')
 def verify_amount_of_items(context, expected_item_count):
-    # sleep(3)
-    # actual_item_count = len(context.driver.find_elements(*AMAZON_MUSIC_MENU_ITEM_RESULTS))
-    # assert actual_item_count == int(expected_item_count), \
-    #     f'Expected {expected_item_count} but got {actual_item_count}'
-    context.app.main_page.menu_item_count(expected_item_count)
+    expected_item_count = int(expected_item_count)
+    context.app.side_menu.verify_item_amount(expected_item_count)
 
 
 @then('Verify cart has {expected_item_count} item')
@@ -110,4 +106,22 @@ def close_and_switch_window_back(context):
 @then('Refresh the page')
 def page_refresh(context):
     context.driver.refresh()
+
+#===========================================================
+
+
+@when('Select Books department')
+def select_department(context):
+    context.app.main_page.select_department_books()
+
+
+@when('Select Electronics department')
+def select_department(context):
+    context.app.main_page.select_department_electronics()
+
+
+@then('{department} department is selected')
+def verify_selected_department(context, department):
+    context.app.main_page.verify_selected_department(department)
+
 

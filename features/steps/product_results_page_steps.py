@@ -43,3 +43,30 @@ def verify_colors(context):
         color.click()
         actual_color = context.driver.find_element(*SELECTED_COLOR).text
         assert actual_color == expected_colors[color_webelements.index(color)]
+
+#===================================================================
+
+
+@given('Open Amazon product {product_id} page')
+def open_product(context, product_id):
+    context.app.product_page.open_product(product_id)
+
+
+@when('Hover over Add to Cart button')
+def hover_add_to_cart(context):
+    context.app.product_page.hover_add_to_cart()
+
+
+@when('Hover over Sales and Deals button')
+def hover_sales_and_deals(context):
+    context.app.product_page.hover_sales_and_deals()
+
+
+@then('Verify size selection tooltip is shown')
+def verify_size_tooltip(context):
+    context.app.product_page.verify_size_tooltip()
+
+
+@then('Verify user sees the deals')
+def verify_deals_present(context):
+    context.app.product_page.verify_deals_present()
